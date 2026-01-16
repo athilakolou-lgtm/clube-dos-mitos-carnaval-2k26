@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clube dos Mitos – Carnaval 2K26</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('fundo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: rgba(0,0,0,0.75);
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: none;
+      font-size: 15px;
+    }
+
+    button {
+      background: #00c853;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 18px;
+      font-size: 16px;
+    }
+
+    .valor {
+      text-align: center;
+      font-size: 18px;
+      margin: 10px 0 20px 0;
+    }
+
+    #qrcode {
+      display: none;
+      text-align: center;
+      margin-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      padding-top: 20px;
+    }
+
+    .aviso {
+      margin-top: 15px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .whatsapp {
+      display: block;
+      margin-top: 15px;
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Clube dos Mitos</h1>
+    <h2>Carnaval 2K26</h2>
+
+    <img src="abada.jpg" alt="Abadá Clube dos Mitos">
+
+    <p class="valor">
+      Valor do Abadá: <strong>R$ 35,00</strong>
+    </p>
+
+    <form id="pedidoForm">
+      <label>Nome Completo</label>
+      <input type="text" id="nome" required>
+
+      <label>Telefone (WhatsApp)</label>
+      <input type="tel" id="telefone" required>
+
+      <label>Modelo do Abadá</label>
+      <select id="modelo" required>
+        <option value="">Selecione</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+      </select>
+
+      <label>Tamanho</label>
+      <select id="tamanho" required>
+        <option value="">Selecione</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+      </select>
+
+      <button type="submit">Confirmar Pedido</button>
+    </form>
+
+    <div id="qrcode">
+      <h3>Pagamento via PIX</h3>
+      <p>Escaneie o QR Code abaixo para pagar <strong>R$ 35,00</strong></p>
+
+      <img src="qrcode-pix.png" alt="QR Code PIX">
+
+      <div class="aviso">
+        ⚠️ <strong>Importante:</strong><br>
+        Após realizar o pagamento, envie o <strong>comprovante</strong>
+        para um membro da organização para confirmar seu abadá.
+      </div>
+
+      <a class="whatsapp"
+         href="https://wa.me/5599999999999"
+         target="_blank">
+        📲 Enviar comprovante pelo WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("pedidoForm");
+    const qrcode = document.getElementById("qrcode");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const dados = {
+        nome: document.getElementById("nome").value,
+        telefone: document.getElementById("telefone").value,
+        modelo: document.getElementById("modelo").value,
+        tamanho: document.getElementById("tamanho").value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbxe2Zl3ohPh7SDihTCbzjqpbiAOznnene3veoGC0XaPepM_dtbQCqlQowNr5cB4rHhXeg/exec", {
+        method: "POST",
+        body: JSON.stringify(dados)
+      });
+
+      qrcode.style.display = "block";
+      form.reset();
+      qrcode.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
